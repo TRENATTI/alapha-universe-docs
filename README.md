@@ -6,7 +6,6 @@ Documents of any changes on the Roblox API which involve Alapha, Alpha Authority
 <br>
 <img src="https://img.shields.io/github/commit-activity/t/Alpha-Authority/alapha-universe-docs">
 <img src="https://img.shields.io/github/last-commit/Alpha-Authority/alapha-universe-docs">
-<img src="https://img.shields.io/github/languages/top/Alpha-Authority/alapha-universe-docs">
 <img src="https://img.shields.io/github/license/Alpha-Authority/alapha-universe-docs">
 <br>
 </div>
