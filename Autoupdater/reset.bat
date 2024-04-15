@@ -1,0 +1,2 @@
+nodemon reset.js
+pause
