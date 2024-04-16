@@ -27,7 +27,7 @@ const admin = require("firebase-admin");
 
 const clientSystem = "./System/Client";
 
-const v4System = "./updatedocsv4";
+const v4System = "./updatedocsv5";
 const v4Folders = fs
 	.readdirSync(v4System);
 	//.filter((file) => file.endsWith(".js"));
@@ -95,14 +95,14 @@ function startApp(currentUser, client, admin) {
     
     for (const api of apitypes) {
         let apiName = api.slice(0, -1)
-        let socketSystem = "./updatedocsv4/" + apiName
+        let socketSystem = "./updatedocsv5/" + apiName
         //socketSystem.slice(0, -1)
         const socketFolders = fs
             .readdirSync(socketSystem)
             .filter((file) => file.endsWith(".js"));
     
         for (const socket of socketFolders) {
-            const socketFile = require(`./updatedocsv4/${apiName}/${socket}`);
+            const socketFile = require(`./updatedocsv5/${apiName}/${socket}`);
             client.updatedocsv4_apisockets.set(socketFile.name, socketFile);
         }
     }
@@ -111,7 +111,8 @@ function startApp(currentUser, client, admin) {
     
     for (const api of apitypes) {
         let apiName = api.slice(0, -1)
-        let socketSystem = "./updatedocsv4/" + apiName
+        console.log(apiName)
+        let socketSystem = "./updatedocsv5/" + apiName
         //socketSystem.slice(0, -1)
         const socketFolders = fs
             .readdirSync(socketSystem)
@@ -124,13 +125,13 @@ function startApp(currentUser, client, admin) {
             if (!executor) return;
             //if (executor.args) return; // temporary
             console.log(executor.name)
-            if (executor.socketType == "groups" && !executor.args){
+            //if (executor.socketType == "groups" && !executor.args){
             try {
                 executor.execute("", noblox, admin);
             } catch {
                 console.log("Failed!")
             }}
-        }
+        
     }
 }
 

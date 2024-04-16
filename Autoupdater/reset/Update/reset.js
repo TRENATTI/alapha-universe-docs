@@ -45,6 +45,18 @@ module.exports = {
         db.ref("szeebe/alapha-universe-docs-signature/Groups/getLogo").set(
             true
         );
+        db.ref("szeebe/alapha-universe-docs-signature/Players/getPlayerInfo").set(
+            true
+        );
+        db.ref("szeebe/alapha-universe-docs-signature/Players/getPresences").set(
+            true
+        );
+        db.ref("szeebe/alapha-universe-docs-signature/Players/getGroups").set(
+            true
+        );
+        db.ref("szeebe/alapha-universe-docs-signature/Players/getFriends").set(
+            true
+        );
         console.log("Reset!")
     }
 };
