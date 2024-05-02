@@ -2,8 +2,8 @@
 require("dotenv").config();
 const fs = require("fs");
 const axios = require("axios");
-const GroupTypeLibrarySingleParam = [
-    "getGroup"
+const GameTypeLibrarySingleParam = [
+    "getPlaceInfo"
 ]
 
 var pushDebounce = true
@@ -16,7 +16,7 @@ module.exports = {
     socketType: "games",
 	async execute(interaction, noblox, admin) {
         var db = admin.database();
-        const isReady = db.ref("szeebe/alapha-universe-docs-signature/Groups/getGroup");
+        const isReady = db.ref("szeebe/alapha-universe-docs-signature/Games/getPlaceInfo");
 
         // Attach an asynchronous callback to read the data at our posts reference
         isReady.once("value", (snapshot) => {
@@ -31,7 +31,7 @@ module.exports = {
 				var ref = db
 					.ref("szeebe")
 					.child("alapha-universe-docs")
-					.child("groups");
+					.child("games");
 				ref.once("value", (snapshot) => {
 					snapshot.forEach((childSnapshot) => {
 						var childKey = childSnapshot.key;
@@ -39,59 +39,59 @@ module.exports = {
 						console.log(childKey, childData);
 						userdata.push({ childKey, childData });
 					});
-                    for (let i = 0; i < GroupTypeLibrarySingleParam.length; i++) {
-					    checkGroupsSingleParam(GroupTypeLibrarySingleParam[i], userdata);
+                    for (let i = 0; i < GameTypeLibrarySingleParam.length; i++) {
+					    checkGamesSingleParam(GameTypeLibrarySingleParam[i], userdata);
                     }
 				});
-                async function checkGroupsSingleParam(GroupType, userData) {//(userData) {
-                    console.log(GroupType);
+                async function checkGamesSingleParam(GameType, userData) {//(userData) {
+                    console.log(GameType);
                     for (let i = 0; i < userData.length; i++) {
                         setTimeout(async function timer() {
                             try {
-                                const groupInfo = await noblox[GroupType](
-                                    Number(userData[i].childData.groupId)
-                                );
-                                console.log(groupInfo);
-                                getGroupGithub(groupInfo, GroupType);
+                                const gameInfo = await noblox[GameType]([
+                                    Number(userData[i].childData.placeId)
+                                ]);
+                                console.log(gameInfo);
+                                getGameGithub(gameInfo, GameType);
                             } catch {
                                 console.log(
-                                    `Error getting group info for ${userData[i].childKey} [${userData[i].childData.groupId}.`
+                                    `Error getting game info for ${userData[i].childKey} [${userData[i].childData.universeId}.`
                                 );
                             }
-                            async function getGroupGithub(groupInfo, GroupType) {
+                            async function getGameGithub(gameInfo, GameType) {
         
                                 try {
                                     const res = await axios.get(
-                                        `https://raw.githack.com/Alpha-Authority/alapha-universe-docs/main/Docs/Groups/${userData[i].childKey}/${GroupType}.json`
+                                        `https://raw.githack.com/Alpha-Authority/alapha-universe-docs/main/Docs/Games/${userData[i].childKey}/${GameType}.json`
                                     )
                                     if (res.data == null) {
-                                        continueGroupData(false, "", groupInfo, GroupType)
+                                        continueGameData(false, "", gameInfo, GameType)
                                     } else {
                                         console.log(res.data)
-                                        continueGroupData(true, res, groupInfo, GroupType)
+                                        continueGameData(true, res, gameInfo, GameType)
                                     }
                                 } catch (error) {
                                     const res = ""
-                                    continueGroupData(false, res, groupInfo, GroupType)
+                                    continueGameData(false, res, gameInfo, GameType)
                                 }
                             }
-                            async function continueGroupData(Flag, res, groupInfoCont, GroupType){
+                            async function continueGameData(Flag, res, gameInfoCont,GameType){
                                 if (Flag == true) {
                                     var newdatastring = JSON.stringify(res.data);
                                     var newdatajson = JSON.parse(newdatastring);
                                     var newdatajsonstring = JSON.stringify(newdatajson);
                                     const file = fs.writeFileSync(
-                                        `../Docs/Groups/${userData[i].childKey}/${GroupType}.json`,
+                                        `../Docs/Games/${userData[i].childKey}/${GameType}.json`,
                                         newdatajsonstring,
                                         "utf8"
                                     )
-                                    const datafile2 = require(`../../../Docs/Groups/${userData[i].childKey}/${GroupType}.json`);
+                                    const datafile2 = require(`../../../Docs/Games/${userData[i].childKey}/${GameType}.json`);
                                     var str = JSON.stringify(datafile2);
-                                    var strgD = JSON.stringify(groupInfoCont);
+                                    var strgD = JSON.stringify(gameInfoCont);
                                     console.log(str != strgD)
                                     if (str != strgD) {
                                         const file2 = fs.writeFileSync(
-                                            `../Docs/Groups/${userData[i].childKey}/${GroupType}.json`,
+                                            `../Docs/Games/${userData[i].childKey}/${GameType}.json`,
                                             strgD,
                                             "utf8"
                                         );
@@ -101,9 +101,9 @@ module.exports = {
                                     }
         
                                 } else {
-                                    var strgD = JSON.stringify(groupInfoCont);
+                                    var strgD = JSON.stringify(gameInfoCont);
                                     const file2 = fs.writeFile(
-                                        `../Docs/Groups/${userData[i].childKey}/${GroupType}.json`,
+                                        `../Docs/Games/${userData[i].childKey}/${GameType}.json`,
                                         strgD, 
                                         function(err) {
         
