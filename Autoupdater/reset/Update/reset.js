@@ -57,6 +57,9 @@ module.exports = {
         db.ref("szeebe/alapha-universe-docs-signature/Players/getFriends").set(
             true
         );
+        db.ref("szeebe/alapha-universe-docs-signature/Games/getPlaceInfo").set(
+            true
+        );
         console.log("Reset!")
     }
 };
