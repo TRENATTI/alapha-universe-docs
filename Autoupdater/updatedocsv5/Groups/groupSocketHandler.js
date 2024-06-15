@@ -60,6 +60,8 @@ module.exports = {
                                     );
                                     
                                     clearInterval(intervalId);
+
+                                    process.exit()
                                 }
                             });
                         })

@@ -61,5 +61,6 @@ module.exports = {
             true
         );
         console.log("Reset!")
+        process.exit()
     }
 };
