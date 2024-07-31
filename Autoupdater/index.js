@@ -1,5 +1,3 @@
-// By ScriptIntelligence
-
 // Structure Setup
 
 // node_modules
